@@ -7,19 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1E7EE2E5-203D-4387-85BA-7A7FCC9B17BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Domain", "Domain\TicketReservation.Domain\TicketReservation.Domain.csproj", "{3C1C9A51-E00E-4330-9CBD-018BEE430D4D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Domain.Tests", "Domain\TicketReservation.Domain.Tests\TicketReservation.Domain.Tests.csproj", "{F4EF78F5-61DC-4446-AB05-CC9A35682E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Domain", "Domain\TicketReservation.Domain\TicketReservation.Domain.csproj", "{3C1C9A51-E00E-4330-9CBD-018BEE430D4D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5737708C-A675-4D52-BFA6-57A04C32F320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Application.Tests", "Application\Tests\TicketReservation.Application.Tests\TicketReservation.Application.Tests.csproj", "{208ED85B-7101-4C3E-BCB6-459C91588C13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Application", "Application\TicketReservation.Application\TicketReservation.Application.csproj", "{10BEB494-0E14-4EAE-9B8D-7D819BE925F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.WebAPI.Tests", "Application\Tests\TicketReservation.WebAPI.Tests\TicketReservation.WebAPI.Tests.csproj", "{45504741-8D97-459F-AFF6-178059195FEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.WebAPI", "Application\TicketReservation.WebAPI\TicketReservation.WebAPI.csproj", "{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Application", "Application\TicketReservation.Application\TicketReservation.Application.csproj", "{10BEB494-0E14-4EAE-9B8D-7D819BE925F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Domain.Tests", "Domain\TicketReservation.Domain.Tests\TicketReservation.Domain.Tests.csproj", "{DA54856D-A7E0-410E-A296-B7D01AF2323A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.WebAPI", "Application\TicketReservation.WebAPI\TicketReservation.WebAPI.csproj", "{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Application.Tests", "Application\Tests\TicketReservation.Application.Tests\TicketReservation.Application.Tests.csproj", "{889EFA94-3FB0-4796-AA43-5366CDD2F911}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.WebAPI.Tests", "Application\Tests\TicketReservation.WebAPI.Tests\TicketReservation.WebAPI.Tests.csproj", "{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,18 +31,6 @@ Global
 		{3C1C9A51-E00E-4330-9CBD-018BEE430D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1C9A51-E00E-4330-9CBD-018BEE430D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1C9A51-E00E-4330-9CBD-018BEE430D4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4EF78F5-61DC-4446-AB05-CC9A35682E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4EF78F5-61DC-4446-AB05-CC9A35682E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4EF78F5-61DC-4446-AB05-CC9A35682E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4EF78F5-61DC-4446-AB05-CC9A35682E4F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{208ED85B-7101-4C3E-BCB6-459C91588C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{208ED85B-7101-4C3E-BCB6-459C91588C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{208ED85B-7101-4C3E-BCB6-459C91588C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{208ED85B-7101-4C3E-BCB6-459C91588C13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45504741-8D97-459F-AFF6-178059195FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45504741-8D97-459F-AFF6-178059195FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45504741-8D97-459F-AFF6-178059195FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45504741-8D97-459F-AFF6-178059195FEC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10BEB494-0E14-4EAE-9B8D-7D819BE925F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10BEB494-0E14-4EAE-9B8D-7D819BE925F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10BEB494-0E14-4EAE-9B8D-7D819BE925F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,18 +39,30 @@ Global
 		{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA54856D-A7E0-410E-A296-B7D01AF2323A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA54856D-A7E0-410E-A296-B7D01AF2323A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA54856D-A7E0-410E-A296-B7D01AF2323A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA54856D-A7E0-410E-A296-B7D01AF2323A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{889EFA94-3FB0-4796-AA43-5366CDD2F911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{889EFA94-3FB0-4796-AA43-5366CDD2F911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{889EFA94-3FB0-4796-AA43-5366CDD2F911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{889EFA94-3FB0-4796-AA43-5366CDD2F911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3C1C9A51-E00E-4330-9CBD-018BEE430D4D} = {1E7EE2E5-203D-4387-85BA-7A7FCC9B17BC}
-		{F4EF78F5-61DC-4446-AB05-CC9A35682E4F} = {1E7EE2E5-203D-4387-85BA-7A7FCC9B17BC}
 		{5737708C-A675-4D52-BFA6-57A04C32F320} = {F677BBBE-EB72-4202-BB1D-85AD0D2641BE}
-		{208ED85B-7101-4C3E-BCB6-459C91588C13} = {5737708C-A675-4D52-BFA6-57A04C32F320}
-		{45504741-8D97-459F-AFF6-178059195FEC} = {5737708C-A675-4D52-BFA6-57A04C32F320}
 		{10BEB494-0E14-4EAE-9B8D-7D819BE925F0} = {F677BBBE-EB72-4202-BB1D-85AD0D2641BE}
 		{4D2E3C28-6C88-458A-98A4-B57C1D7C8475} = {F677BBBE-EB72-4202-BB1D-85AD0D2641BE}
+		{DA54856D-A7E0-410E-A296-B7D01AF2323A} = {1E7EE2E5-203D-4387-85BA-7A7FCC9B17BC}
+		{889EFA94-3FB0-4796-AA43-5366CDD2F911} = {5737708C-A675-4D52-BFA6-57A04C32F320}
+		{A170EA9D-C7B8-46ED-9AA0-3C9D5B2C6C4B} = {5737708C-A675-4D52-BFA6-57A04C32F320}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAB9C7A3-EE13-48D9-8677-DCB4DA25E3AA}
