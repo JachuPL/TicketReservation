@@ -6,8 +6,7 @@ Background:
 Scenario: The one when the customer reserves a single seat
 	Given cinema "Plaza" in "Lublin" is defined
 	And movie "Smoleńsk" is defined
-	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00"
-	And the ticket cost is 25 PLN
+	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00" with ticket price of 25 PLN
 	When I select cinema "Plaza" in "Lublin"
 	And I select movie "Smoleńsk"
 	And I select show at "2019-05-01 20:00"
@@ -21,8 +20,7 @@ Scenario: The one when the customer reserves a single seat
 Scenario: The one when the customer reserves 2 seats
 	Given cinema "Plaza" in "Lublin" is defined
 	And movie "Smoleńsk" is defined
-	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00"
-	And the ticket cost is 25 PLN
+	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00" with ticket price of 25 PLN
 	When I select cinema "Plaza" in "Lublin"
 	And I select movie "Smoleńsk"
 	And I select show at "2019-05-01 20:00"
@@ -37,7 +35,7 @@ Scenario: The one when the customer reserves 2 seats
 Scenario: The one when customer sees occupied seats
 	Given cinema "Plaza" in "Lublin" is defined
 	And movie "Smoleńsk" is defined
-	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00"
+	And show "Smoleńsk" is played in cinema "Plaza" in "Lublin" on "2019-05-01 20:00" with ticket price of 25 PLN
 	And seat 10 in row 5 is reserved for "Smoleńsk" in cinema "Plaza" in "Lublin" on "2019-05-01 20:00"
 	When I select cinema "Plaza" in "Lublin"
 	And I select movie "Smoleńsk"

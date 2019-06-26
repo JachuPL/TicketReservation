@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace TicketReservation.Domain.Tests
+namespace TicketReservation.WebAPI.Tests.Reservations
 {
     using TechTalk.SpecFlow;
     
@@ -100,26 +100,25 @@ this.FeatureBackground();
 #line 8
  testRunner.And("movie \"Smoleńsk\" is defined", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
- testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\" wit" +
+                    "h ticket price of 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.And("the ticket cost is 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
  testRunner.When("I select cinema \"Plaza\" in \"Lublin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
+#line 11
  testRunner.And("I select movie \"Smoleńsk\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 12
  testRunner.And("I select show at \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 13
  testRunner.And("I select 1 ticket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
+#line 14
  testRunner.And("I select seat 10 in row 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 15
  testRunner.Then("the cost of reservation is 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 17
+#line 16
  testRunner.When("I make a reservation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
+#line 17
  testRunner.Then("the selected seats are reserved for me", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 19
+#line 18
  testRunner.And("I get an email with reservation confirmation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -131,38 +130,37 @@ this.FeatureBackground();
         public virtual void TheOneWhenTheCustomerReserves2Seats()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The one when the customer reserves 2 seats", null, ((string[])(null)));
-#line 21
+#line 20
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 3
 this.FeatureBackground();
-#line 22
+#line 21
  testRunner.Given("cinema \"Plaza\" in \"Lublin\" is defined", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 23
+#line 22
  testRunner.And("movie \"Smoleńsk\" is defined", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\" wit" +
+                    "h ticket price of 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 25
- testRunner.And("the ticket cost is 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
  testRunner.When("I select cinema \"Plaza\" in \"Lublin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 25
  testRunner.And("I select movie \"Smoleńsk\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
+#line 26
  testRunner.And("I select show at \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
+#line 27
  testRunner.And("I select 2 tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
+#line 28
  testRunner.And("I select seat 10 in row 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
+#line 29
  testRunner.And("I select seat 11 in row 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 32
+#line 30
  testRunner.Then("the cost of reservation is 50 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 33
+#line 31
  testRunner.When("I make a reservation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 34
+#line 32
  testRunner.Then("the selected seats are reserved for me", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 35
+#line 33
  testRunner.And("I get an email with reservation confirmation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -174,27 +172,28 @@ this.FeatureBackground();
         public virtual void TheOneWhenCustomerSeesOccupiedSeats()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The one when customer sees occupied seats", null, ((string[])(null)));
-#line 37
+#line 35
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 3
 this.FeatureBackground();
-#line 38
+#line 36
  testRunner.Given("cinema \"Plaza\" in \"Lublin\" is defined", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 39
+#line 37
  testRunner.And("movie \"Smoleńsk\" is defined", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
- testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 41
+#line 38
+ testRunner.And("show \"Smoleńsk\" is played in cinema \"Plaza\" in \"Lublin\" on \"2019-05-01 20:00\" wit" +
+                    "h ticket price of 25 PLN", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
  testRunner.And("seat 10 in row 5 is reserved for \"Smoleńsk\" in cinema \"Plaza\" in \"Lublin\" on \"201" +
                     "9-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
+#line 40
  testRunner.When("I select cinema \"Plaza\" in \"Lublin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 43
+#line 41
  testRunner.And("I select movie \"Smoleńsk\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 44
+#line 42
  testRunner.And("I select show at \"2019-05-01 20:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 45
+#line 43
  testRunner.Then("I see that seat 10 in row 5 is already reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
