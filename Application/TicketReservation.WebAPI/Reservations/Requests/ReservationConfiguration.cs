@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketReservation.Domain;
 
-namespace TicketReservation.WebAPI.Controllers
+namespace TicketReservation.WebAPI.Reservations.Requests
 {
     public class ReservationConfiguration
     {
@@ -10,12 +9,5 @@ namespace TicketReservation.WebAPI.Controllers
         public Guid MovieId { get; set; }
         public Guid ShowId { get; set; }
         public List<Place> Tickets { get; set; } = new List<Place>();
-    }
-
-    public class Place
-    {
-        public Ticket Ticket { get; set; }
-        public int Row { get; set; }
-        public int Seat { get; set; }
     }
 }

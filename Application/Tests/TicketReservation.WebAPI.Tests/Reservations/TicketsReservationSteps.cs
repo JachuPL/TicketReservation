@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Globalization;
 using TechTalk.SpecFlow;
+using TicketReservation.Application.Common.Database;
 using TicketReservation.WebAPI.Tests.Common;
 
 namespace TicketReservation.WebAPI.Tests.Reservations
@@ -13,6 +15,9 @@ namespace TicketReservation.WebAPI.Tests.Reservations
 
         protected override void ServicesConfiguration(IServiceCollection services)
         {
+            services.AddDbContext<TicketReservationContext>();
+            services.AddEntityFrameworkInMemoryDatabase();
+            services.AddAutoMapper(typeof(Startup).Assembly, typeof(TicketReservationContext).Assembly);
         }
 
         [Given(@"now is ""(.*)""")]

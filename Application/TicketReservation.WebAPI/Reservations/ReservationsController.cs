@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using TicketReservation.WebAPI.Reservations.Requests;
 
-namespace TicketReservation.WebAPI.Controllers
+namespace TicketReservation.WebAPI.Reservations
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationController : ControllerBase
+    public class ReservationsController : ControllerBase
     {
         [Route("offer")]
         [HttpGet]

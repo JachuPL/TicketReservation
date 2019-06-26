@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using TicketReservation.WebAPI.Cinemas.Requests;
 
-namespace TicketReservation.WebAPI.Controllers
+namespace TicketReservation.WebAPI.Cinemas
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class MovieController : ControllerBase
+    public class CinemasController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<Guid> Create([FromBody] MovieCreationRequest model)
+        public ActionResult<Guid> Create([FromBody] CinemaCreationRequest model)
         {
             return Guid.NewGuid();
         }
-    }
-
-    public class MovieCreationRequest
-    {
     }
 }
