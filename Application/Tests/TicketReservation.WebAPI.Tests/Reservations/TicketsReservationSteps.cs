@@ -1,9 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Net.Http;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TicketReservation.Application.Common.Database;
+using TicketReservation.WebAPI.Cinemas.Requests;
+using TicketReservation.WebAPI.Movies.Requests;
+using TicketReservation.WebAPI.Shows.Requests;
 using TicketReservation.WebAPI.Tests.Common;
 
 namespace TicketReservation.WebAPI.Tests.Reservations
@@ -12,6 +18,9 @@ namespace TicketReservation.WebAPI.Tests.Reservations
     public class TicketsReservationSteps : AbstractIntegrationTestSession
     {
         private DateTime _now;
+        private Guid _cinemaId;
+        private Guid _movieId;
+        private Guid _showId;
 
         protected override void ServicesConfiguration(IServiceCollection services)
         {
@@ -23,32 +32,55 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [Given(@"now is ""(.*)""")]
         public void GivenNowIs(string datetime)
         {
-            _now = DateTime.ParseExact("yyyy-MM-dd HH:mm", datetime, CultureInfo.InvariantCulture);
+            _now = DateTime.ParseExact(datetime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
 
         [Given(@"cinema ""(.*)"" in ""(.*)"" is defined")]
-        public void GivenCinemaInIsDefined(string cinema, string city)
+        public async Task GivenCinemaInIsDefined(string cinema, string city)
         {
-            // TODO: POST /cinemas/
-            //{
-            //  "Name": {cinema},
-            //  "City": {city}
-            //}
-            ScenarioContext.Current.Pending();
+            CreateCinemaRequest request = new CreateCinemaRequest()
+            {
+                Name = cinema,
+                City = city
+            };
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/cinemas/", request);
+            string content = await response.Content.ReadAsStringAsync();
+            _cinemaId = Guid.Parse(content.Replace("\"", string.Empty));
         }
 
         [Given(@"movie ""(.*)"" is defined")]
-        public void GivenMovieIsDefined(string movie)
+        public async Task GivenMovieIsDefined(string movie)
         {
-            // TODO: POST /movies/
-            ScenarioContext.Current.Pending();
+            CreateMovieRequest request = new CreateMovieRequest()
+            {
+                Title = "Smoleńsk"
+            };
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/movies/", request);
+            string content = await response.Content.ReadAsStringAsync();
+            _movieId = Guid.Parse(content.Replace("\"", string.Empty));
         }
 
         [Given(@"show ""(.*)"" is played in cinema ""(.*)"" in ""(.*)"" on ""(.*)"" with ticket price of (.*) PLN")]
-        public void GivenShowIsPlayedInCinemaInOnWithTicketPriceOfPLN(string movie, string cinema, string city, string datetime, int price)
+        public async Task GivenShowIsPlayedInCinemaInOnWithTicketPriceOfPLN(string movie, string cinema, string city, string datetime, int price)
         {
-            // TODO: POST /shows/
-            ScenarioContext.Current.Pending();
+            DateTime date = DateTime.ParseExact(datetime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            CreateShowRequest request = new CreateShowRequest()
+            {
+                MovieId = _movieId,
+                CinemaId = _cinemaId,
+                Date = date,
+                PriceList = new List<TicketPrice>
+                {
+                    new TicketPrice
+                    {
+                        Kind =  TicketKind.Normal,
+                        Price = price
+                    }
+                }
+            };
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/shows/", request);
+            string content = await response.Content.ReadAsStringAsync();
+            _showId = Guid.Parse(content.Replace("\"", string.Empty));
         }
 
         [Given(@"seat (.*) in row (.*) is reserved for ""(.*)"" in cinema ""(.*)"" in ""(.*)"" on ""(.*)""")]

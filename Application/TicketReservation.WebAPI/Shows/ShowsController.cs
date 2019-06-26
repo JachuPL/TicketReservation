@@ -11,7 +11,7 @@ namespace TicketReservation.WebAPI.Shows
     public class ShowsController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<Guid> Create([FromBody] ShowCreationRequest model)
+        public ActionResult<Guid> Create([FromBody] CreateShowRequest model)
         {
             return Guid.NewGuid();
         }

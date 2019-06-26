@@ -7,11 +7,11 @@ namespace TicketReservation.WebAPI.Cinemas
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CinemasController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<Guid> Create([FromBody] CinemaCreationRequest model)
+        public ActionResult<Guid> Create([FromBody] CreateCinemaRequest model)
         {
             return Guid.NewGuid();
         }

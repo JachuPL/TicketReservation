@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
+using Microsoft.AspNetCore.TestHost;
 
 namespace TicketReservation.WebAPI.Tests.Common
 {
@@ -18,7 +19,7 @@ namespace TicketReservation.WebAPI.Tests.Common
 
         private void CustomWebHostBuilder(IWebHostBuilder builder)
         {
-            builder.ConfigureServices(ServicesConfiguration);
+            builder.ConfigureTestServices(ServicesConfiguration);
         }
 
         protected abstract void ServicesConfiguration(IServiceCollection services);

@@ -10,7 +10,7 @@ namespace TicketReservation.WebAPI.Reservations
     {
         [Route("offer")]
         [HttpGet]
-        public ActionResult GetOffer(ReservationConfiguration model)
+        public ActionResult GetOffer(ReserveTicketsRequest model)
         {
             throw new Exception();
         }

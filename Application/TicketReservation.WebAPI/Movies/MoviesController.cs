@@ -11,7 +11,7 @@ namespace TicketReservation.WebAPI.Movies
     public class MoviesController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<Guid> Create([FromBody] MovieCreationRequest model)
+        public ActionResult<Guid> Create([FromBody] CreateMovieRequest model)
         {
             return Guid.NewGuid();
         }

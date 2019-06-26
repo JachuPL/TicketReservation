@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TicketReservation.WebAPI.Reservations.Requests
 {
-    public class ReservationConfiguration
+    public class ReserveTicketsRequest
     {
         public Guid CinemaId { get; set; }
         public Guid MovieId { get; set; }
