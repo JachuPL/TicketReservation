@@ -1,19 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using TicketReservation.WebAPI.Shows.Requests;
 
 namespace TicketReservation.WebAPI.Shows
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ShowsController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult<Guid> Create([FromBody] CreateShowRequest model)
+        [Route("{id:guid}", Name = nameof(GetShowById))]
+        public ActionResult GetShowById(Guid id)
         {
-            return Guid.NewGuid();
+            return null;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult> Post(CreateShowRequest model)
+        {
+            Guid guid = Guid.NewGuid();
+            return CreatedAtRoute(nameof(GetShowById), new { id = guid }, guid);
         }
     }
 }

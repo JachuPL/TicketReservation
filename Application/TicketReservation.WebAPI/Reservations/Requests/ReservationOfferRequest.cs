@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TicketReservation.WebAPI.Reservations.Requests
 {
-    public class ReserveTicketsRequest
+    public class ReservationOfferRequest
     {
         public Guid ShowId { get; set; }
-        public List<Place> Tickets { get; set; } = new List<Place>();
+        public List<Place> Places { get; set; } = new List<Place>();
     }
 }

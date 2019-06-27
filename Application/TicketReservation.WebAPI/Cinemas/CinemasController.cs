@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using TicketReservation.WebAPI.Cinemas.Requests;
 
 namespace TicketReservation.WebAPI.Cinemas
@@ -10,10 +11,18 @@ namespace TicketReservation.WebAPI.Cinemas
     //[Authorize]
     public class CinemasController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult<Guid> Create([FromBody] CreateCinemaRequest model)
+        [Route("{id:guid}", Name = nameof(GetCinemaById))]
+        public ActionResult GetCinemaById(Guid id)
         {
-            return Guid.NewGuid();
+            return null;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult> Post(CreateCinemaRequest model)
+        {
+            Guid guid = Guid.NewGuid();
+            return CreatedAtRoute(nameof(GetCinemaById), new { id = guid }, guid);
         }
     }
 }
