@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{F677BBBE-EB72-4202-BB1D-85AD0D2641BE}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.WebAPI", "Application\TicketReservation.WebAPI\TicketReservation.WebAPI.csproj", "{4D2E3C28-6C88-458A-98A4-B57C1D7C8475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketReservation.Domain.Tests", "Domain\TicketReservation.Domain.Tests\TicketReservation.Domain.Tests.csproj", "{DA54856D-A7E0-410E-A296-B7D01AF2323A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Domain.Tests", "Domain\TicketReservation.Domain.Tests\TicketReservation.Domain.Tests.csproj", "{DA54856D-A7E0-410E-A296-B7D01AF2323A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketReservation.Application.Tests", "Application\Tests\TicketReservation.Application.Tests\TicketReservation.Application.Tests.csproj", "{889EFA94-3FB0-4796-AA43-5366CDD2F911}"
 EndProject
