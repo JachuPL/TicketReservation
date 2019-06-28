@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TicketReservation.Application.Common.Database;
@@ -28,11 +30,21 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         private Guid _createdCinemaId, _selectedCinemaId;
         private Guid _createdMovieId, _selectedMovieId;
         private Guid _createdShowId, _selectedShowId;
-        private int _selectedTicketAmount;
         private List<Place> _selectedPlaces = new List<Place>();
         private ReservationOffer _generatedOffer;
         private HttpStatusCode _reservationStatusCode;
         private ISendEmails _emailSender;
+
+        public TicketsReservationSteps() : base()
+        {
+            var jwt = GetJwt();
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, jwt);
+        }
+
+        private string GetJwt()
+        {
+            
+        }
 
         protected override void ServicesConfiguration(IServiceCollection services)
         {
@@ -147,7 +159,6 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select (.*) ticket")]
         public void WhenISelectTicket(int amount)
         {
-            _selectedTicketAmount = amount;
         }
 
         [When(@"I select seat (.*) in row (.*)")]
@@ -175,7 +186,6 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select (.*) tickets")]
         public void WhenISelectTickets(int amount)
         {
-            _selectedTicketAmount = amount;
         }
 
         [Then(@"the cost of reservation is (.*) PLN")]

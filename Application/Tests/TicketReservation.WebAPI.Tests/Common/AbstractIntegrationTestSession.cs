@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.TestHost;
 
 namespace TicketReservation.WebAPI.Tests.Common
