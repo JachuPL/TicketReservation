@@ -12,6 +12,7 @@ namespace TicketReservation.WebAPI.Shows
     //[Authorize]
     public class ShowsController : ControllerBase
     {
+        [HttpGet]
         [Route("{id:guid}", Name = nameof(GetShowById))]
         public ActionResult GetShowById(Guid id)
         {

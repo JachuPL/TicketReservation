@@ -12,6 +12,7 @@ namespace TicketReservation.WebAPI.Movies
     //[Authorize]
     public class MoviesController : ControllerBase
     {
+        [HttpGet]
         [Route("{id:guid}", Name = nameof(GetMovieById))]
         public ActionResult GetMovieById(Guid id)
         {

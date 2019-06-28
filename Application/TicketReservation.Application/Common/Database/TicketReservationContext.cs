@@ -1,27 +1,29 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
-using System;
 using TicketReservation.Application.Cinemas.Mappings;
 using TicketReservation.Application.Movies.Mappings;
 using TicketReservation.Application.Reservations.Mappings;
 using TicketReservation.Application.Shows.Mappings;
 using TicketReservation.Domain;
-using TicketReservation.Domain.Identity;
+using TicketReservation.Application.Encryption;
 
 namespace TicketReservation.Application.Common.Database
 {
-    public class TicketReservationContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class TicketReservationContext : DbContext
     {
+        private readonly IEncrypt _encrypter;
         public virtual DbSet<Cinema> Cinemas { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<Show> Shows { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected TicketReservationContext()
         {
         }
 
-        public TicketReservationContext(DbContextOptions options) : base(options)
+        public TicketReservationContext(DbContextOptions options, IEncrypt encrypter) : base(options)
         {
+            _encrypter = encrypter;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,40 +44,27 @@ namespace TicketReservation.Application.Common.Database
             builder.ApplyConfiguration(new ReservedSeatMapping());
             builder.ApplyConfiguration(new ShowMapping());
 
-            ConfigureIdentity(builder);
+            SeedUsers(builder);
         }
 
-        private static void ConfigureIdentity(ModelBuilder builder)
+        private void SeedUsers(ModelBuilder builder)
         {
-            builder.Entity<Role>().ToTable("Roles");
-            builder.Entity<RoleClaim>().ToTable("RoleClaims");
-            builder.Entity<User>().ToTable("Users");
-            builder.Entity<UserLogin>().ToTable("UserLogins");
-            builder.Entity<UserRole>().ToTable("UserRoles");
-            builder.Entity<UserToken>().ToTable("UserTokens");
-            builder.Entity<UserClaim>().ToTable("UserClaims");
+            const string adminPassword = "admin12345";
+            var adminSalt = _encrypter.GetSalt(adminPassword);
+            var adminHash = _encrypter.GetHash(adminPassword, adminSalt);
+            User admin = new User(Guid.NewGuid(), "admin", adminHash, adminSalt, Role.Administrator);
 
-            Role administrator = new Role
-            {
-                Id = Guid.NewGuid(),
-                Name = "Administrator",
-                NormalizedName = "Administrator"
-            };
+            const string cashierPassword = "cashier12345";
+            var cashierSalt = _encrypter.GetSalt(cashierPassword);
+            var cashierHash = _encrypter.GetHash(cashierPassword, cashierSalt);
+            User cashier = new User(Guid.NewGuid(), "cashier", cashierHash, cashierSalt, Role.Cashier);
 
-            Role cashier = new Role
-            {
-                Id = Guid.NewGuid(),
-                Name = "Cashier",
-                NormalizedName = "Cashier"
-            };
+            const string customerPassword = "user12345";
+            var customerSalt = _encrypter.GetSalt(customerPassword);
+            var customerHash = _encrypter.GetHash(customerPassword, customerSalt);
+            User user = new User(Guid.NewGuid(), "user", customerHash, customerSalt, Role.Customer);
 
-            Role customer = new Role
-            {
-                Id = Guid.NewGuid(),
-                Name = "Customer",
-                NormalizedName = "Customer"
-            };
-            builder.Entity<Role>().HasData(administrator, cashier, customer);
+            builder.Entity<User>().HasData(admin, cashier, user);
         }
     }
 }

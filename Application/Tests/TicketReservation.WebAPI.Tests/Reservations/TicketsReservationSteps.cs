@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Common.Mail;
 using TicketReservation.Domain;
@@ -37,13 +38,20 @@ namespace TicketReservation.WebAPI.Tests.Reservations
 
         public TicketsReservationSteps() : base()
         {
-            var jwt = GetJwt();
+            var jwt = Task.Run(GetJwt).Result;
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, jwt);
         }
 
-        private string GetJwt()
+        private async Task<string> GetJwt()
         {
-            
+            var request = new LoginRequest()
+            {
+                Login = "user",
+                Password = "user12345"
+            };
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/login/", request);
+            var jwt = JsonConvert.DeserializeObject<JwtDTO>(await response.Content.ReadAsStringAsync());
+            return jwt.Token;
         }
 
         protected override void ServicesConfiguration(IServiceCollection services)
@@ -226,7 +234,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [Then(@"I see that seat (.*) in row (.*) is already reserved")]
         public async Task ThenISeeThatSeatInRowIsAlreadyReserved(int seat, int row)
         {
-            HttpResponseMessage response = await Client.GetAsync($"/api/show/{_selectedShowId}/availableseats");
+            HttpResponseMessage response = await Client.GetAsync($"/api/shows/{_selectedShowId}/availableseats");
             List<Place> places = JsonConvert.DeserializeObject<List<Place>>(await response.Content.ReadAsStringAsync());
             places.Should().NotContain(x => x.Seat == seat && x.Row == row);
         }

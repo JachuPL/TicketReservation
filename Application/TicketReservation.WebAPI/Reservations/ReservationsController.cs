@@ -10,9 +10,9 @@ namespace TicketReservation.WebAPI.Reservations
     {
         [Route("offer")]
         [HttpGet]
-        public ActionResult<ReservationOffer> GetOffer(ReservationOfferRequest model)
+        public ActionResult<ReservationOffer> GetOffer([FromQuery] ReservationOfferRequest model)
         {
-            throw new Exception();
+            return Ok(new ReservationOffer() { Price = model.Places.Count });
         }
     }
 }
