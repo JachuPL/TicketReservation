@@ -15,9 +15,12 @@ using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Cinemas.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Common.Mail;
+using TicketReservation.Application.Encryption;
 using TicketReservation.Application.Movies.Requests;
 using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
+using TicketReservation.Application.Settings;
+using TicketReservation.Application.Shared;
 using TicketReservation.Application.Shows.Requests;
 using TicketReservation.Domain;
 using TicketReservation.WebAPI.Tests.Common;
@@ -27,8 +30,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
     [Binding]
     public class TicketsReservationSteps : AbstractIntegrationTestSession
     {
-        private Guid _createdCinemaId, _selectedCinemaId;
-        private Guid _createdMovieId, _selectedMovieId;
+        private Guid _createdCinemaId;
+        private Guid _createdMovieId;
         private Guid _createdShowId, _selectedShowId;
         private List<Place> _selectedPlaces = new List<Place>();
         private ReservationOffer _generatedOffer;
@@ -49,7 +52,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
                 Password = "user12345"
             };
             HttpResponseMessage response = await Client.PostAsJsonAsync("/api/login/", request);
-            var jwt = JsonConvert.DeserializeObject<JwtDTO>(await response.Content.ReadAsStringAsync());
+            string responseContent = await response.Content.ReadAsStringAsync();
+            var jwt = JsonConvert.DeserializeObject<JwtDTO>(responseContent);
             return jwt.Token;
         }
 
@@ -139,23 +143,18 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select cinema ""(.*)"" in ""(.*)""")]
         public void WhenISelectCinemaIn(string cinema, string city)
         {
-            // TODO: implement GET Cinemas?cinema={cinema}&city={city}
             // NOTE: for this purpose assume that cinema name is unique and we have 1 cinema available
-            _selectedCinemaId = _createdCinemaId;
         }
 
         [When(@"I select movie ""(.*)""")]
         public void WhenISelectMovie(string movie)
         {
-            // TODO: implement GET Movies?name={movie}
             // NOTE: for this purpose assume that movie name is unique and we have 1 movie available
-            _selectedMovieId = _createdMovieId;
         }
 
         [When(@"I select show at ""(.*)""")]
         public void WhenISelectShowAt(string datetime)
         {
-            // TODO: implement GET Shows?cinemaId={_selectedCinemaId}&movieId={_selectedMovieId}&date={datetime}
             // NOTE: for this purpose assume that show is defined
             _selectedShowId = _createdShowId;
         }

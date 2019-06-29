@@ -20,13 +20,13 @@ namespace TicketReservation.Domain
         {
             Id = id;
 
-            if (Row < 1 || Row > 20)
+            if (row < 1 || row > NumberOfRows)
             {
                 throw new ArgumentException(nameof(row));
             }
             Row = row;
 
-            if (Seat < 1 || Seat > 30)
+            if (seat < 1 || seat > NumberOfSeatsPerRow)
             {
                 throw new ArgumentException(nameof(seat));
             }

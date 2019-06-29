@@ -19,11 +19,13 @@ namespace TicketReservation.Application.Common.Database
 
         protected TicketReservationContext()
         {
+            Database.EnsureCreated();
         }
 
         public TicketReservationContext(DbContextOptions options, IEncrypt encrypter) : base(options)
         {
             _encrypter = encrypter;
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -65,9 +65,7 @@ namespace TicketReservation.Application.Reservations.Implementations
             HashSet<ReservedSeat> reservedSeats = new HashSet<ReservedSeat>();
             places.ForEach(place =>
             {
-                Guid reservedSeatId = Guid.NewGuid();
                 ReservedSeat seat = ReservedSeat.Create(place.Row, place.Seat, place.Ticket);
-
                 reservedSeats.Add(seat);
             });
 
@@ -77,7 +75,7 @@ namespace TicketReservation.Application.Reservations.Implementations
         private bool AnyPlaceIsInvalid(List<Place> places)
         {
             return places.Any(x => x.Row > Place.NumberOfRows || x.Seat > Place.NumberOfSeatsPerRow
-            || x.Row < 0 || x.Seat < 0);
+            || x.Row < 1 || x.Seat < 1);
         }
 
         public async Task Delete(Guid id)
