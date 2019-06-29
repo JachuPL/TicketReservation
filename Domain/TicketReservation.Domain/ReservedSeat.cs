@@ -25,13 +25,13 @@ namespace TicketReservation.Domain
                 throw new ArgumentException(nameof(row));
             }
             Row = row;
-            
+
             if (Seat < 1 || Seat > 30)
             {
                 throw new ArgumentException(nameof(seat));
             }
             Seat = seat;
-            
+
             Ticket = ticket;
         }
 

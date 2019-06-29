@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using TicketReservation.Application.Shows.Requests;
-using TicketReservation.Application.Reservations.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using TicketReservation.Application.Reservations.Interfaces;
 using TicketReservation.Application.Reservations.Models;
+using TicketReservation.Application.Shows.Requests;
 
 namespace TicketReservation.WebAPI.Shows
 {

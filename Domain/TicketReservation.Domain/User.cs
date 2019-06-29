@@ -24,7 +24,7 @@ namespace TicketReservation.Domain
             Role = Role.Customer;
         }
 
-        public User(Guid id, string login, string passwordHash, string passwordSalt, string email, string phone, string firstName, string lastName, Role role) : 
+        public User(Guid id, string login, string passwordHash, string passwordSalt, string email, string phone, string firstName, string lastName, Role role) :
             this(id, login, passwordHash, passwordSalt, email, phone, firstName, lastName)
         {
             Role = role;

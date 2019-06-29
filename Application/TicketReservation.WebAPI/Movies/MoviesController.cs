@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using TicketReservation.Application.Movies.Requests;
 using TicketReservation.Application.Movies.Interfaces;
+using TicketReservation.Application.Movies.Requests;
 
 namespace TicketReservation.WebAPI.Movies
 {

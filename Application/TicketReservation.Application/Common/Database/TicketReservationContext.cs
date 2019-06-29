@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using TicketReservation.Application.Cinemas.Mappings;
+using TicketReservation.Application.Encryption;
 using TicketReservation.Application.Movies.Mappings;
 using TicketReservation.Application.Reservations.Mappings;
 using TicketReservation.Application.Shows.Mappings;
 using TicketReservation.Domain;
-using TicketReservation.Application.Encryption;
 
 namespace TicketReservation.Application.Common.Database
 {

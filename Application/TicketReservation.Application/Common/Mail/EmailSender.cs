@@ -4,7 +4,6 @@
     {
         public void Send(Email message)
         {
-            
         }
     }
 }

@@ -3,10 +3,10 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TicketReservation.Application.Account.Interfaces;
 using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Extensions;
 using TicketReservation.Application.Settings;
-using TicketReservation.Application.Account.Interfaces;
 using TicketReservation.Domain;
 
 namespace TicketReservation.Application.Account.Implementations

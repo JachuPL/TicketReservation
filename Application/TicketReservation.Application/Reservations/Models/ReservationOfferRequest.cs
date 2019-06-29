@@ -10,7 +10,6 @@ namespace TicketReservation.Application.Reservations.Requests
         public Guid ShowId { get; set; }
         public List<Place> Places { get; set; } = new List<Place>();
 
-
         public override bool Equals(object obj)
         {
             if (obj is null)
@@ -25,7 +24,7 @@ namespace TicketReservation.Application.Reservations.Requests
 
         private bool PlacesAreEqual(List<Place> places)
         {
-            foreach(var place in places)
+            foreach (var place in places)
             {
                 if (!Places.Any(x => place.Equals(x))) return false;
             }

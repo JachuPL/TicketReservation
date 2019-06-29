@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Reservations.Interfaces;
@@ -61,10 +60,9 @@ namespace TicketReservation.Application.Reservations.Implementations
                                     from seat in Enumerable.Range(1, Place.NumberOfSeatsPerRow)
                                     select new { row, seat };
 
-
             var availableSeats = allPossiblePlaces.Where(x => reservedSeats.Any(z => z.Row != x.row && z.Seat != x.seat));
 
-            return availableSeats.Select(x => new Place 
+            return availableSeats.Select(x => new Place
             {
                 Row = x.row,
                 Seat = x.seat

@@ -40,7 +40,7 @@ namespace TicketReservation.Domain
                 throw new Exception("This reservation cannot be placed, because show starts in less than 30 minutes.");
             }
 
-            foreach (var reservedSeat in reservation.ReservedSeats) 
+            foreach (var reservedSeat in reservation.ReservedSeats)
             {
                 if (IsPlaceReserved(reservedSeat.Row, reservedSeat.Seat))
                 {
