@@ -74,7 +74,7 @@ namespace TicketReservation.Application.Reservations.Implementations
 
         private bool AnyPlaceIsInvalid(List<Place> places)
         {
-            return places.Any(x => x.Row > Place.NumberOfRows || x.Seat > Place.NumberOfSeatsPerRow
+            return places.Any(x => x.Row > ReservedSeat.NumberOfRows || x.Seat > ReservedSeat.NumberOfSeatsPerRow
             || x.Row < 1 || x.Seat < 1);
         }
 

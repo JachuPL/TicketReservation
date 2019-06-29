@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TicketReservation.Domain
+namespace TicketReservation.Domain.Cinemas
 {
-    public class CinemaFactory
+    public static class CinemaFactory
     {
         public static Cinema Create(Guid id, string name, string city)
         {

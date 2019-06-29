@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TicketReservation.Domain;
+using TicketReservation.Domain.Cinemas;
 
 namespace TicketReservation.Application.Cinemas.Mappings
 {
@@ -11,8 +12,8 @@ namespace TicketReservation.Application.Cinemas.Mappings
             builder.ToTable("Cinemas");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.City).HasMaxLength(100).IsRequired();
-            builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.City).HasMaxLength(Cinema.MaxCityLength).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(Cinema.MaxNameLength).IsRequired();
         }
     }
 }

@@ -56,8 +56,8 @@ namespace TicketReservation.Application.Reservations.Implementations
 
         private static List<Place> GetAvailableSeats(IEnumerable<ReservedSeat> reservedSeats)
         {
-            var allPossiblePlaces = from row in Enumerable.Range(1, Place.NumberOfRows)
-                                    from seat in Enumerable.Range(1, Place.NumberOfSeatsPerRow)
+            var allPossiblePlaces = from row in Enumerable.Range(1, ReservedSeat.NumberOfRows)
+                                    from seat in Enumerable.Range(1, ReservedSeat.NumberOfSeatsPerRow)
                                     select new { row, seat };
 
             var availableSeats = allPossiblePlaces.Where(x => reservedSeats.Any(z => z.Row != x.row && z.Seat != x.seat));

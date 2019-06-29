@@ -8,6 +8,7 @@ using TicketReservation.Application.Cinemas.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Shows.Requests;
 using TicketReservation.Domain;
+using TicketReservation.Domain.Cinemas;
 
 namespace TicketReservation.Application.Cinemas.Implementations
 {
