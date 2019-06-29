@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicketReservation.Domain.Cinemas;
+using TicketReservation.Domain.Movies;
 
 namespace TicketReservation.Domain
 {

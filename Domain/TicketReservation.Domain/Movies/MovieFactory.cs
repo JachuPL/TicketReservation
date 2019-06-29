@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketReservation.Domain
+namespace TicketReservation.Domain.Movies
 {
     public class MovieFactory
     {

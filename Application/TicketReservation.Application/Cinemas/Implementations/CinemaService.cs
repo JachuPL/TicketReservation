@@ -9,6 +9,7 @@ using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Shows.Requests;
 using TicketReservation.Domain;
 using TicketReservation.Domain.Cinemas;
+using TicketReservation.Domain.Movies;
 
 namespace TicketReservation.Application.Cinemas.Implementations
 {
