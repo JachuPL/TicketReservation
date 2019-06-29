@@ -13,8 +13,8 @@ namespace TicketReservation.Application.Shows.Mappings
             builder.ToTable("Shows");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.Movie).WithMany(x => x.Shows).HasForeignKey("MovieId");
-            builder.HasOne(x => x.Cinema).WithMany().HasForeignKey("CinemaId");
+            builder.HasOne(x => x.Movie).WithMany().HasForeignKey("MovieId").IsRequired();
+            builder.HasOne(x => x.Cinema).WithMany(x => x.Shows).HasForeignKey("CinemaId").IsRequired();
 
             builder.Property(x => x.Date).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.PriceList)

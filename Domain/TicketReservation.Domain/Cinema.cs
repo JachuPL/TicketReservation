@@ -7,13 +7,13 @@ namespace TicketReservation.Domain
     public class Cinema
     {
         public Guid Id { get; protected set; }
-        public HashSet<CinemaMovie> Movies { get; protected set; }
+        public HashSet<Show> Shows { get; protected set; }
         public string Name { get; protected set; }
         public string City { get; protected set; }
 
         protected Cinema()
         {
-            Movies = new HashSet<CinemaMovie>();
+            Shows = new HashSet<Show>();
         }
 
         internal Cinema(Guid id, string name, string city)
@@ -21,24 +21,24 @@ namespace TicketReservation.Domain
             Id = id;
             Name = name;
             City = city;
-            Movies = new HashSet<CinemaMovie>();
+            Shows = new HashSet<Show>();
         }
 
-        public void AddMovie(Movie movie)
+        public void AddShow(Show show)
         {
-            if (Movies.Any(x => x.MovieId == movie.Id))
+            if (Shows.Any(x => x.Id == show.Id))
             {
                 return;
             }
 
-            Movies.Add(new CinemaMovie { Cinema = this, Movie = movie });
+            Shows.Add(show);
         }
 
-        public void RemoveMovie(Movie movie)
+        public void RemoveShow(Show show)
         {
-            var foundMovie = Movies.FirstOrDefault(x => x.MovieId == movie.Id);
-            if (foundMovie is null) return;
-            Movies.Remove(foundMovie);
+            var foundShow = Shows.FirstOrDefault(x => x.Id == show.Id);
+            if (foundShow is null) return;
+            Shows.Remove(foundShow);
         }
     }
 }

@@ -4,24 +4,40 @@ namespace TicketReservation.Domain
 {
     public class ReservedSeat
     {
+        public const int NumberOfRows = 20;
+        public const int NumberOfSeatsPerRow = 30;
+
         public Guid Id { get; protected set; }
         public int Row { get; protected set; }
-        public int Column { get; protected set; }
+        public int Seat { get; protected set; }
         public Ticket Ticket { get; protected set; }
-        public bool IsPaid { get; protected set; }
 
-        internal ReservedSeat(Guid id, int row, int column, Ticket ticket, bool isPaid)
+        protected ReservedSeat()
         {
-            Id = id;
-            Row = row;
-            Column = column;
-            Ticket = ticket;
-            IsPaid = isPaid;
         }
 
-        public void MarkAsPaid()
+        internal ReservedSeat(Guid id, int row, int seat, Ticket ticket)
         {
-            IsPaid = true;
+            Id = id;
+
+            if (Row < 1 || Row > 20)
+            {
+                throw new ArgumentException(nameof(row));
+            }
+            Row = row;
+            
+            if (Seat < 1 || Seat > 30)
+            {
+                throw new ArgumentException(nameof(seat));
+            }
+            Seat = seat;
+            
+            Ticket = ticket;
+        }
+
+        public static ReservedSeat Create(int row, int seat, Ticket ticket)
+        {
+            return new ReservedSeat(Guid.NewGuid(), row, seat, ticket);
         }
     }
 }

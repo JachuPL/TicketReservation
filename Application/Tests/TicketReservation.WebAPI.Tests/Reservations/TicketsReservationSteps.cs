@@ -6,20 +6,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TicketReservation.Application.Account.Models;
+using TicketReservation.Application.Cinemas.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Common.Mail;
+using TicketReservation.Application.Movies.Requests;
+using TicketReservation.Application.Reservations.Models;
+using TicketReservation.Application.Reservations.Requests;
+using TicketReservation.Application.Shows.Requests;
 using TicketReservation.Domain;
-using TicketReservation.WebAPI.Cinemas.Requests;
-using TicketReservation.WebAPI.Movies.Requests;
-using TicketReservation.WebAPI.Reservations.Requests;
-using TicketReservation.WebAPI.Shows.Requests;
 using TicketReservation.WebAPI.Tests.Common;
 
 namespace TicketReservation.WebAPI.Tests.Reservations
@@ -27,7 +27,6 @@ namespace TicketReservation.WebAPI.Tests.Reservations
     [Binding]
     public class TicketsReservationSteps : AbstractIntegrationTestSession
     {
-        private DateTime _now;
         private Guid _createdCinemaId, _selectedCinemaId;
         private Guid _createdMovieId, _selectedMovieId;
         private Guid _createdShowId, _selectedShowId;
@@ -66,7 +65,6 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [Given(@"now is ""(.*)""")]
         public void GivenNowIs(string datetime)
         {
-            _now = DateTime.ParseExact(datetime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
 
         [Given(@"cinema ""(.*)"" in ""(.*)"" is defined")]
@@ -97,22 +95,20 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [Given(@"show ""(.*)"" is played in cinema ""(.*)"" in ""(.*)"" on ""(.*)"" with ticket price of (.*) PLN")]
         public async Task GivenShowIsPlayedInCinemaInOnWithTicketPriceOfPLN(string movie, string cinema, string city, string datetime, int price)
         {
-            DateTime date = DateTime.ParseExact(datetime, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
             CreateShowRequest request = new CreateShowRequest()
             {
                 MovieId = _createdMovieId,
-                CinemaId = _createdCinemaId,
-                Date = date,
+                Date = DateTime.Now.AddMinutes(60),
                 PriceList = new List<TicketPrice>
                 {
                     new TicketPrice
                     {
-                        Kind =  TicketKind.Normal,
+                        Kind =  Ticket.Normal,
                         Price = price
                     }
                 }
             };
-            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/shows/", request);
+            HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/cinemas/{_createdCinemaId}/shows", request);
             string[] uriSegments = response.Headers.Location.Segments;
             _createdShowId = Guid.Parse(uriSegments[uriSegments.Length - 1]);
         }
@@ -151,7 +147,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select movie ""(.*)""")]
         public void WhenISelectMovie(string movie)
         {
-            // TODO: implement GET Movies?cinemaId={_selectedCinemaId}&name={movie}
+            // TODO: implement GET Movies?name={movie}
             // NOTE: for this purpose assume that movie name is unique and we have 1 movie available
             _selectedMovieId = _createdMovieId;
         }
@@ -172,7 +168,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select seat (.*) in row (.*)")]
         public void WhenISelectSeatInRow(int seat, int row)
         {
-            // NOTE: We assume that a request was made to /shows/{_selectedShowId}/seats and this seat is available.
+            // NOTE: We assume that a request was made to /shows/{_selectedShowId}/availableseats and this seat is available.
             // Otherwise, the flow would not match other scenarios
             _selectedPlaces.Add(new Place
             {
@@ -215,14 +211,14 @@ namespace TicketReservation.WebAPI.Tests.Reservations
             HttpResponseMessage response = await Client.GetAsync(query);
             string content = await response.Content.ReadAsStringAsync();
             _generatedOffer = JsonConvert.DeserializeObject<ReservationOffer>(content);
-            _generatedOffer.OfferRequest.Should().BeSameAs(request);
+            _generatedOffer.OfferRequest.Should().BeEquivalentTo(request);
             _generatedOffer.Price.Should().Be(price);
         }
 
         [Then(@"the selected seats are reserved for me")]
         public void ThenTheSelectedSeatsAreReservedForMe()
         {
-            _reservationStatusCode.Should().Be(HttpStatusCode.OK);
+            _reservationStatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [Then(@"I get an email with reservation confirmation")]

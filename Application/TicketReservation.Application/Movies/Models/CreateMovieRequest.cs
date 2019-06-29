@@ -1,4 +1,4 @@
-﻿namespace TicketReservation.WebAPI.Movies.Requests
+﻿namespace TicketReservation.Application.Movies.Requests
 {
     public class CreateMovieRequest
     {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketReservation.Application.Common.Database;
 
 namespace TicketReservation.Application.Migrations
 {
     [DbContext(typeof(TicketReservationContext))]
-    partial class TicketReservationContextModelSnapshot : ModelSnapshot
+    [Migration("20190629160927_user_fields")]
+    partial class user_fields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

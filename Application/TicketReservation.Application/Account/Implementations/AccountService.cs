@@ -35,7 +35,7 @@ namespace TicketReservation.Application.Account.Implementations
                 throw new Exception("Invalid credentials");
             }
 
-            var token = _jwtService.CreateToken(user.Id, login);
+            var token = _jwtService.CreateToken(user.Id, user.Role, login);
             return token;
         }
     }

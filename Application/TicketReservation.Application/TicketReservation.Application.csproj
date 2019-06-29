@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -8,6 +8,11 @@
     <Compile Remove="Common\Database\Migrations\**" />
     <EmbeddedResource Remove="Common\Database\Migrations\**" />
     <None Remove="Common\Database\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190629134325_refactored_domain.cs" />
+    <Compile Remove="Migrations\20190629134325_refactored_domain.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

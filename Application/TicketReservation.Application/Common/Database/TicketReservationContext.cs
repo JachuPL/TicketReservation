@@ -38,7 +38,6 @@ namespace TicketReservation.Application.Common.Database
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new CinemaMapping());
-            builder.ApplyConfiguration(new CinemaMovieMapping());
             builder.ApplyConfiguration(new MovieMapping());
             builder.ApplyConfiguration(new ReservationMapping());
             builder.ApplyConfiguration(new ReservedSeatMapping());
@@ -52,17 +51,17 @@ namespace TicketReservation.Application.Common.Database
             const string adminPassword = "admin12345";
             var adminSalt = _encrypter.GetSalt(adminPassword);
             var adminHash = _encrypter.GetHash(adminPassword, adminSalt);
-            User admin = new User(Guid.NewGuid(), "admin", adminHash, adminSalt, Role.Administrator);
+            User admin = new User(Guid.NewGuid(), "admin", adminHash, adminSalt, "admin@ticketres.pl", "777888999", "Admin", "Adminowski", Role.Administrator);
 
             const string cashierPassword = "cashier12345";
             var cashierSalt = _encrypter.GetSalt(cashierPassword);
             var cashierHash = _encrypter.GetHash(cashierPassword, cashierSalt);
-            User cashier = new User(Guid.NewGuid(), "cashier", cashierHash, cashierSalt, Role.Cashier);
+            User cashier = new User(Guid.NewGuid(), "cashier", cashierHash, cashierSalt, "cashier@ticketres.pl", "777888999", "Cashier", "Cashmirowski", Role.Cashier);
 
             const string customerPassword = "user12345";
             var customerSalt = _encrypter.GetSalt(customerPassword);
             var customerHash = _encrypter.GetHash(customerPassword, customerSalt);
-            User user = new User(Guid.NewGuid(), "user", customerHash, customerSalt, Role.Customer);
+            User user = new User(Guid.NewGuid(), "user", customerHash, customerSalt, "user@ticketres.pl", "777888999", "Pan", "Użyszkodnik", Role.Customer);
 
             builder.Entity<User>().HasData(admin, cashier, user);
         }

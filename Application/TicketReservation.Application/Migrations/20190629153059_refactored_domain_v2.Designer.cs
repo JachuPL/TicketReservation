@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketReservation.Application.Common.Database;
 
 namespace TicketReservation.Application.Migrations
 {
     [DbContext(typeof(TicketReservationContext))]
-    partial class TicketReservationContextModelSnapshot : ModelSnapshot
+    [Migration("20190629153059_refactored_domain_v2")]
+    partial class refactored_domain_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,19 +129,11 @@ namespace TicketReservation.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
                     b.Property<string>("Login");
 
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PasswordSalt");
-
-                    b.Property<string>("Phone");
 
                     b.Property<int>("Role");
 
@@ -150,26 +144,26 @@ namespace TicketReservation.Application.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c744871e-8e30-4bef-b0df-9a0bee8b01b9"),
+                            Id = new Guid("c5bc32ae-ffe5-443d-849f-9c796f93299c"),
                             Login = "admin",
-                            PasswordHash = "wQ6cDrcWiFS6LNZ3ieG6DYR9zthofrRs9a6rzxYFXnyu4cFka+a4Ag==",
-                            PasswordSalt = "QN0ZGBESjAY0KkcxouwcuhUa9bbfQd4cV+HCw4xwoULAh4jUqnuUxw==",
-                            Role = 2
+                            PasswordHash = "UOhOvyRhsQODsg5zHK2Fg7HyiFPfuHMVxfH+Q3cCusJeWveOwptGTw==",
+                            PasswordSalt = "NjatPUsN7fWNrA5TcOh6qXo7JdqaDoaEKESC0R/Qq+BmMf6tbO+cdg==",
+                            Role = 0
                         },
                         new
                         {
-                            Id = new Guid("24e026ad-e069-4ab7-8003-f623a3a3d146"),
+                            Id = new Guid("7761459d-f3ae-4af0-996f-4b84bea3b71a"),
                             Login = "cashier",
-                            PasswordHash = "aSGUzrjSGaN8vWa8nq0bAIfWfu/ZX6hqyRLepNdjG1RrM3xobM9p/g==",
-                            PasswordSalt = "NuU5eKt6sxp5pLUwGOu5HPMChEwXnDNG51lQJd6x8lFGkEFI9tiYJQ==",
-                            Role = 1
+                            PasswordHash = "6pVcohC92nsfbqZbM8//OerciQB6TbrOyDnTRzjVZYxz6PCXDGGDaw==",
+                            PasswordSalt = "fz5oNiRK56a5cx27G0dA3FHnT+oqjjWooEWJlXQXiFUGx7VCZQEg9g==",
+                            Role = 0
                         },
                         new
                         {
-                            Id = new Guid("8d4b7ed2-a241-4744-b776-da80cae8e0a9"),
+                            Id = new Guid("02a05980-7a56-41e9-800e-6bc7f2eca063"),
                             Login = "user",
-                            PasswordHash = "TI/o5T3zrn9XaKkx29WtG27aNRIFd62mhiMiZq2RsglSj8Xr5bpVww==",
-                            PasswordSalt = "KspogfYOBAo0/tXk8poWuihixt2J/9BwJZzfB+NtN1ZT54OHW6VfSA==",
+                            PasswordHash = "lRspeYpetNTf8bRqh2RgIXlR9XGUv9wGwlGtxVuVA0uBySKdg1YpIQ==",
+                            PasswordSalt = "CWDnbhLbmyoErCqKPqCWTL/7MNqM5EhVa4s3o15RqXAJzD9GwxxEBg==",
                             Role = 0
                         });
                 });

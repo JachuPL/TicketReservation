@@ -12,11 +12,10 @@ namespace TicketReservation.Application.Reservations.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Ticket);
-            builder.Property(x => x.Column).IsRequired();
+            builder.Property(x => x.Seat).IsRequired();
             builder.Property(x => x.Row).IsRequired();
-            builder.Property(x => x.IsPaid).IsRequired();
 
-            builder.HasOne<Reservation>().WithMany(x => x.ReservedSeats).HasForeignKey("ReservationId");
+            builder.HasOne<Reservation>().WithMany(x => x.ReservedSeats).HasForeignKey("ReservationId").IsRequired();
         }
     }
 }

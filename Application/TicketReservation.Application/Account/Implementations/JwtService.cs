@@ -7,6 +7,7 @@ using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Extensions;
 using TicketReservation.Application.Settings;
 using TicketReservation.Application.Account.Interfaces;
+using TicketReservation.Domain;
 
 namespace TicketReservation.Application.Account.Implementations
 {
@@ -19,7 +20,7 @@ namespace TicketReservation.Application.Account.Implementations
             _jwtSettings = jwtSettings;
         }
 
-        public JwtDTO CreateToken(Guid userId, string login)
+        public JwtDTO CreateToken(Guid userId, Role role, string login)
         {
             var now = DateTime.UtcNow;
             var claims = new Claim[]
@@ -28,7 +29,8 @@ namespace TicketReservation.Application.Account.Implementations
                 new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat,  now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.Name, login)
+                new Claim(ClaimTypes.Name, login),
+                new Claim(ClaimTypes.Role, role.ToString()),
             };
 
             var expires = now.AddMinutes(_jwtSettings.ExpiryMinutes);

@@ -11,12 +11,13 @@ namespace TicketReservation.Application.Reservations.Mappings
             builder.ToTable("Reservations");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<Show>().WithMany(x => x.Reservations).HasForeignKey("ShowId");
+            builder.HasOne<Show>().WithMany(x => x.Reservations).HasForeignKey("ShowId").IsRequired();
 
             builder.Property(x => x.UserEmail).HasMaxLength(100);
             builder.Property(x => x.UserFirstName).HasMaxLength(100);
             builder.Property(x => x.UserLastName).HasMaxLength(100);
             builder.Property(x => x.UserPhone).HasMaxLength(20);
+            builder.Property(x => x.IsPaid).IsRequired();
         }
     }
 }

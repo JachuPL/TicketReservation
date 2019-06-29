@@ -11,6 +11,7 @@ namespace TicketReservation.Domain
         public string UserFirstName { get; protected set; }
         public string UserLastName { get; protected set; }
         public HashSet<ReservedSeat> ReservedSeats { get; protected set; }
+        public bool IsPaid { get; protected set; }
 
         protected Reservation()
         {
@@ -25,12 +26,21 @@ namespace TicketReservation.Domain
             UserFirstName = userFirstName;
             UserLastName = userLastName;
             ReservedSeats = reservedSeats;
+            IsPaid = false;
         }
 
-        internal Reservation(Guid id, HashSet<ReservedSeat> reservedSeats)
+        internal Reservation(Guid id, HashSet<ReservedSeat> reservedSeats, bool isPaid)
         {
             Id = id;
             ReservedSeats = reservedSeats;
+            IsPaid = isPaid;
         }
+
+        public void MarkAsPaid()
+        {
+            IsPaid = true;
+        }
+
+        public bool WasPlacedViaWebsite => UserEmail != null;
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using TicketReservation.Application.Reservations.Models;
 
-namespace TicketReservation.WebAPI.Reservations.Requests
+namespace TicketReservation.Application.Reservations.Requests
 {
     public class ReserveTicketsRequest
     {
