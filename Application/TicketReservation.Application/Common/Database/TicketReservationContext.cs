@@ -50,22 +50,19 @@ namespace TicketReservation.Application.Common.Database
 
         private void SeedUsers(ModelBuilder builder)
         {
-            const string adminPassword = "admin12345";
-            var adminSalt = _encrypter.GetSalt(adminPassword);
-            var adminHash = _encrypter.GetHash(adminPassword, adminSalt);
-            User admin = new User(Guid.NewGuid(), "admin", adminHash, adminSalt, "admin@ticketres.pl", "777888999", "Admin", "Adminowski", Role.Administrator);
-
-            const string cashierPassword = "cashier12345";
-            var cashierSalt = _encrypter.GetSalt(cashierPassword);
-            var cashierHash = _encrypter.GetHash(cashierPassword, cashierSalt);
-            User cashier = new User(Guid.NewGuid(), "cashier", cashierHash, cashierSalt, "cashier@ticketres.pl", "777888999", "Cashier", "Cashmirowski", Role.Cashier);
-
-            const string customerPassword = "user12345";
-            var customerSalt = _encrypter.GetSalt(customerPassword);
-            var customerHash = _encrypter.GetHash(customerPassword, customerSalt);
-            User user = new User(Guid.NewGuid(), "user", customerHash, customerSalt, "user@ticketres.pl", "777888999", "Pan", "Użyszkodnik", Role.Customer);
+            User admin = CreateUser("admin", "admin12345", "admin@ticketres.pl", "777888999", "Admin", "Adminowski", Role.Administrator);
+            User cashier = CreateUser("cashier", "cashier12345", "cashier@ticketres.pl", "777888999", "Cashier", "Cashmirowski", Role.Cashier);
+            User user = CreateUser("user", "user12345", "user@ticketres.pl", "777888999", "Pan", "Użyszkodnik", Role.Customer);
 
             builder.Entity<User>().HasData(admin, cashier, user);
+        }
+
+        private User CreateUser(string login, string password, string email, string phone, string firstName,
+            string lastName, Role role)
+        {
+            var salt = _encrypter.GetSalt(password);
+            var passwordHash = _encrypter.GetHash(password, salt);
+            return new User(Guid.NewGuid(), login, passwordHash, salt, email, phone, firstName, lastName, role);
         }
     }
 }

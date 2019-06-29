@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace TicketReservation.Application.Migrations
+namespace TicketReservation.Application.Common.Database.Migrations
 {
     public partial class refactored_domain_v2 : Migration
     {

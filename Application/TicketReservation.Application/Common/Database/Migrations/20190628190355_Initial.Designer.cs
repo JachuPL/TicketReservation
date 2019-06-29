@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketReservation.Application.Common.Database;
 
-namespace TicketReservation.Application.Migrations
+namespace TicketReservation.Application.Common.Database.Migrations
 {
     [DbContext(typeof(TicketReservationContext))]
     [Migration("20190628190355_Initial")]

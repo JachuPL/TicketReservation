@@ -4,8 +4,8 @@ namespace TicketReservation.Application.Encryption
 {
     public interface IEncrypt : IService
     {
-        string GetHash(string value, string salt);
+        string GetHash(string input, string salt);
 
-        string GetSalt(string value);
+        string GetSalt(string password);
     }
 }

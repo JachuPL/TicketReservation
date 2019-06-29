@@ -18,10 +18,10 @@ namespace TicketReservation.WebAPI.Account
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<JwtDTO>> PostLogin([FromBody] LoginRequest model)
+        public async Task<ActionResult<JwtDto>> PostLogin([FromBody] LoginRequest model)
         {
-            JwtDTO jwt = await _accountService.LoginAsync(model.Login, model.Password);
-            return Ok(jwt);
+            JwtDto jwtToken = await _accountService.LoginAsync(model.Login, model.Password);
+            return Ok(jwtToken);
         }
     }
 }

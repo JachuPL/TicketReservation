@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TicketReservation.Application.Reservations.Models;
 
-namespace TicketReservation.Application.Reservations.Requests
+namespace TicketReservation.Application.Reservations.Models
 {
     public class ReservationOfferRequest
     {

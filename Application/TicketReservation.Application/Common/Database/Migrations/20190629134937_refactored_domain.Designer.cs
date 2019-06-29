@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketReservation.Application.Common.Database;
 
-namespace TicketReservation.Application.Migrations
+namespace TicketReservation.Application.Common.Database.Migrations
 {
     [DbContext(typeof(TicketReservationContext))]
-    [Migration("20190628211801_identity_fix")]
-    partial class identity_fix
+    [Migration("20190629134937_refactored_domain")]
+    partial class refactored_domain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,19 +39,6 @@ namespace TicketReservation.Application.Migrations
                     b.ToTable("Cinemas");
                 });
 
-            modelBuilder.Entity("TicketReservation.Domain.CinemaMovie", b =>
-                {
-                    b.Property<Guid>("CinemaId");
-
-                    b.Property<Guid>("MovieId");
-
-                    b.HasKey("CinemaId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("CinemaMovies");
-                });
-
             modelBuilder.Entity("TicketReservation.Domain.Movie", b =>
                 {
                     b.Property<Guid>("Id")
@@ -71,7 +58,7 @@ namespace TicketReservation.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ShowId");
+                    b.Property<Guid>("ShowId");
 
                     b.Property<string>("UserEmail")
                         .HasMaxLength(100);
@@ -97,13 +84,13 @@ namespace TicketReservation.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Column");
-
                     b.Property<bool>("IsPaid");
 
-                    b.Property<Guid?>("ReservationId");
+                    b.Property<Guid>("ReservationId");
 
                     b.Property<int>("Row");
+
+                    b.Property<int>("Seat");
 
                     b.Property<int>("Ticket");
 
@@ -119,12 +106,12 @@ namespace TicketReservation.Application.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CinemaId");
+                    b.Property<Guid>("CinemaId");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("MovieId");
+                    b.Property<Guid>("MovieId");
 
                     b.Property<string>("PriceList");
 
@@ -157,34 +144,50 @@ namespace TicketReservation.Application.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6feffd38-8779-4029-bc53-7b0dba014a08"),
+                            Id = new Guid("aede5155-1ff0-4773-94ce-8e1d5381d15f"),
                             Login = "admin",
-                            PasswordHash = "RBwia7l/XT55UPAXwcG8EeaD9Ptxwlqc1iHXKC9Ud62XEoKVlF+A6w==",
-                            PasswordSalt = "xKE27N+FJPrxbDch8p0E/MOMTd1ueLi9u74Z4sbM+JyGThQileDifA==",
+                            PasswordHash = "dt6W6xHtY4pK2//53ULGwywWkqKq6j9hbrLRdtUO5x0yDB1FNSJvMw==",
+                            PasswordSalt = "bUWtXRtWVDDYcSU4GeP7juBAWlBBw+29Cv29VxOsRbhfy5AGvLY3Nw==",
                             Role = 0
                         },
                         new
                         {
-                            Id = new Guid("2449b5e1-f6bd-40bb-9c38-eb22c5431839"),
+                            Id = new Guid("3a01a2df-a56a-4a45-ac9f-6136e6e8e93b"),
                             Login = "cashier",
-                            PasswordHash = "u604IwZO4CqYWZN3F/6BCh3e9xji1O2P57xKrYQHLNnRsv+Y/BPeCQ==",
-                            PasswordSalt = "Dqd/i1QlsgMR2UV9vz0dA/LBiul4s+1eHXL2uMhKa6uszDhY9+80Tg==",
+                            PasswordHash = "VbBm9VM/XwuggYdKnh7NV57SIn4BgFXXD7NkKgOKkQnmF44lXXk0+w==",
+                            PasswordSalt = "5zKzkYZN/DTsTM0xjmUN1ZuRdjhgkGFYT1EaK3xRjbeHGmEuzbBKcg==",
                             Role = 0
                         },
                         new
                         {
-                            Id = new Guid("b4230381-cbb4-4509-ab44-5e148cde3e43"),
+                            Id = new Guid("b5b31071-9562-4fc8-b065-b343b6748e7b"),
                             Login = "user",
-                            PasswordHash = "8Wp1FTPfFuV9y3WwbEQAM6WWxrQ27zdMF2ok8ROE1tcIMrBKhCd2sg==",
-                            PasswordSalt = "LwDSAG2EZmhphdnyxKnFUnl0ixvZCjvKwpusqfvmXDaIAkLQmad60A==",
+                            PasswordHash = "D5ycKTP6Ri4zBcmtgU0v52hlYsbKEzCeKSofn8R229uPEGF/JDiwtg==",
+                            PasswordSalt = "lqiBu4LSWiKfBghl7PrgzYi914NAs7hUxnjdWODzsEY6Fy/zmmxhAw==",
                             Role = 0
                         });
                 });
 
-            modelBuilder.Entity("TicketReservation.Domain.CinemaMovie", b =>
+            modelBuilder.Entity("TicketReservation.Domain.Reservation", b =>
+                {
+                    b.HasOne("TicketReservation.Domain.Show")
+                        .WithMany("Reservations")
+                        .HasForeignKey("ShowId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TicketReservation.Domain.ReservedSeat", b =>
+                {
+                    b.HasOne("TicketReservation.Domain.Reservation")
+                        .WithMany("ReservedSeats")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TicketReservation.Domain.Show", b =>
                 {
                     b.HasOne("TicketReservation.Domain.Cinema", "Cinema")
-                        .WithMany("Movies")
+                        .WithMany("Shows")
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -192,31 +195,6 @@ namespace TicketReservation.Application.Migrations
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TicketReservation.Domain.Reservation", b =>
-                {
-                    b.HasOne("TicketReservation.Domain.Show")
-                        .WithMany("Reservations")
-                        .HasForeignKey("ShowId");
-                });
-
-            modelBuilder.Entity("TicketReservation.Domain.ReservedSeat", b =>
-                {
-                    b.HasOne("TicketReservation.Domain.Reservation")
-                        .WithMany("ReservedSeats")
-                        .HasForeignKey("ReservationId");
-                });
-
-            modelBuilder.Entity("TicketReservation.Domain.Show", b =>
-                {
-                    b.HasOne("TicketReservation.Domain.Cinema", "Cinema")
-                        .WithMany()
-                        .HasForeignKey("CinemaId");
-
-                    b.HasOne("TicketReservation.Domain.Movie", "Movie")
-                        .WithMany("Shows")
-                        .HasForeignKey("MovieId");
                 });
 #pragma warning restore 612, 618
         }

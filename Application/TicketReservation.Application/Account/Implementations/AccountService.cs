@@ -21,7 +21,7 @@ namespace TicketReservation.Application.Account.Implementations
             _jwtService = jwtService;
         }
 
-        public async Task<JwtDTO> LoginAsync(string login, string password)
+        public async Task<JwtDto> LoginAsync(string login, string password)
         {
             var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Login == login);
             if (user == null)

@@ -5,36 +5,36 @@ namespace TicketReservation.Application.Encryption
 {
     internal class Encrypter : IEncrypt
     {
-        private static readonly int DeriveBytesIterationsCount = 10000;
-        private static readonly int SaltSize = 40;
+        private const int DeriveBytesIterationsCount = 10000;
+        private const int SaltSize = 40;
 
-        public string GetHash(string value, string salt)
+        public string GetHash(string input, string salt)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(input))
             {
-                throw new ArgumentException("Can not generate hash from an empty value.", nameof(value));
+                throw new ArgumentException("Can not generate hash from an empty input.", nameof(input));
             }
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(input))
             {
-                throw new ArgumentException("Can not use an empty salt from hashing value.", nameof(value));
+                throw new ArgumentException("Can not use an empty salt from hashing input.", nameof(input));
             }
 
-            var pbkdf2 = new Rfc2898DeriveBytes(value, GetBytes(salt), DeriveBytesIterationsCount);
+            var pbkdf2 = new Rfc2898DeriveBytes(input, GetBytes(salt), DeriveBytesIterationsCount);
 
             return Convert.ToBase64String(pbkdf2.GetBytes(SaltSize));
         }
 
-        public string GetSalt(string value)
+        public string GetSalt(string password)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException("Can not generate salt from an empty value.", nameof(value));
+                throw new ArgumentException("Can not generate salt from an empty password.", nameof(password));
             }
-            if (value.Length < 6)
+            if (password.Length < 6)
             {
                 throw new Exception("Password must contain at least 6 characters.");
             }
-            if (value.Length > 100)
+            if (password.Length > 100)
             {
                 throw new Exception("Password can not contain more than 100 characters.");
             }

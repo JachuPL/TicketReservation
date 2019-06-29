@@ -20,7 +20,7 @@ namespace TicketReservation.Application.Account.Implementations
             _jwtSettings = jwtSettings;
         }
 
-        public JwtDTO CreateToken(Guid userId, Role role, string login)
+        public JwtDto CreateToken(Guid userId, Role role, string login)
         {
             var now = DateTime.UtcNow;
             var claims = new Claim[]
@@ -33,7 +33,7 @@ namespace TicketReservation.Application.Account.Implementations
                 new Claim(ClaimTypes.Role, role.ToString()),
             };
 
-            var expires = now.AddMinutes(_jwtSettings.ExpiryMinutes);
+            DateTime expirationTime = now + _jwtSettings.ExpirationTime;
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
                  SecurityAlgorithms.HmacSha256);
@@ -42,14 +42,14 @@ namespace TicketReservation.Application.Account.Implementations
                 issuer: _jwtSettings.Issuer,
                 claims: claims,
                 notBefore: now,
-                expires: expires,
+                expires: expirationTime,
                 signingCredentials: signingCredentials
             );
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new JwtDTO
+            return new JwtDto
             {
-                Expires = expires.ToTimestamp(),
+                Expires = expirationTime.ToTimestamp(),
                 Token = token
             };
         }

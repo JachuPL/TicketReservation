@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using TicketReservation.Application.Reservations.Interfaces;
+using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
 using TicketReservation.WebAPI.Extensions;
 
@@ -10,6 +12,7 @@ namespace TicketReservation.WebAPI.Reservations
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReservationsController : ControllerBase
     {
         private readonly IQueryReservations _reservationQuerier;
@@ -34,6 +37,7 @@ namespace TicketReservation.WebAPI.Reservations
         [Route("{id:guid}", Name = nameof(GetReservationById))]
         public ActionResult GetReservationById(Guid id)
         {
+            // NOTE: this was just defined only for route generation while POSTing new entity
             return null;
         }
 

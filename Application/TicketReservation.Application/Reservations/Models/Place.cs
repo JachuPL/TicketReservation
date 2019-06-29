@@ -4,9 +4,6 @@ namespace TicketReservation.Application.Reservations.Models
 {
     public class Place
     {
-        public const int NumberOfRows = 20;
-        public const int NumberOfSeatsPerRow = 30;
-
         public int Row { get; set; }
         public int Seat { get; set; }
         public Ticket Ticket { get; set; }
