@@ -10,5 +10,7 @@ namespace TicketReservation.Application.Reservations.Interfaces
         Task Add(Guid reservationId, Guid userId, ReservationOffer model);
 
         Task Delete(Guid id);
+
+        Task MarkAsPaid(Guid id);
     }
 }
