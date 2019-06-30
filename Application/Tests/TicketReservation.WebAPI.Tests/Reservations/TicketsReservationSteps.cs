@@ -30,7 +30,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         private Guid _createdCinemaId;
         private Guid _createdMovieId;
         private Guid _createdShowId, _selectedShowId;
-        private List<Place> _selectedPlaces;
+        private List<Place> _selectedPlaces = new List<Place>();
         private ReservationOffer _generatedOffer;
         private HttpStatusCode _reservationStatusCode;
         private ISendEmails _emailSender;
@@ -169,15 +169,12 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         {
             // NOTE: For sake of simplicity we assume that a request was made previously to /shows/{_selectedShowId}/availableseats and this seat is available.
             // Otherwise, the flow would not match other scenarios
-            _selectedPlaces = new List<Place>
+            _selectedPlaces.Add(new Place
             {
-                new Place
-                {
-                    Ticket = Ticket.Normal,
-                    Row = row,
-                    Seat = seat
-                }
-            };
+                Ticket = Ticket.Normal,
+                Row = row,
+                Seat = seat
+            });
         }
 
         [When(@"I make a reservation")]
@@ -185,6 +182,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         {
             ReservationOffer reservationOffer = _generatedOffer;
             HttpResponseMessage response = await Client.PostAsJsonAsync("/api/reservations/", reservationOffer);
+            string responseContent = await response.Content.ReadAsStringAsync();
             _reservationStatusCode = response.StatusCode;
         }
 

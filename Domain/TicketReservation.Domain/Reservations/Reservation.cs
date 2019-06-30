@@ -19,7 +19,7 @@ namespace TicketReservation.Domain.Reservations
             ReservedSeats = new HashSet<ReservedSeat>();
         }
 
-        internal Reservation(Guid id, string userEmail, string userPhone, string userFirstName, string userLastName)
+        internal Reservation(Guid id, string userEmail, string userPhone, string userFirstName, string userLastName) : this()
         {
             Id = id;
             UserEmail = userEmail;
