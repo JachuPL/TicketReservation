@@ -5,9 +5,9 @@ using TicketReservation.Application.Encryption;
 using TicketReservation.Application.Movies.Mappings;
 using TicketReservation.Application.Reservations.Mappings;
 using TicketReservation.Application.Shows.Mappings;
-using TicketReservation.Domain;
 using TicketReservation.Domain.Cinemas;
 using TicketReservation.Domain.Movies;
+using TicketReservation.Domain.Shows;
 using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Common.Database

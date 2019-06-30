@@ -5,16 +5,16 @@ using TicketReservation.Domain.Cinemas;
 using TicketReservation.Domain.Movies;
 using TicketReservation.Domain.Reservations;
 
-namespace TicketReservation.Domain
+namespace TicketReservation.Domain.Shows
 {
     public class Show
     {
-        public Cinema Cinema { get; protected set; }
-        public DateTime Date { get; protected set; }
-        public Guid Id { get; protected set; }
-        public Movie Movie { get; protected set; }
-        public Dictionary<Ticket, decimal> PriceList { get; protected set; }
-        public HashSet<Reservation> Reservations { get; protected set; }
+        public Cinema Cinema { get; private set; }
+        public DateTime Date { get; private set; }
+        public Guid Id { get; private set; }
+        public Movie Movie { get; private set; }
+        public Dictionary<Ticket, decimal> PriceList { get; private set; }
+        public HashSet<Reservation> Reservations { get; private set; }
 
         internal Show(Guid id, Cinema cinema, Movie movie, DateTime date, Dictionary<Ticket, decimal> pricelist)
         {
@@ -38,7 +38,7 @@ namespace TicketReservation.Domain
                 throw new Exception("This show has already started.");
             }
 
-            if (reservation.WasPlacedViaWebsite && DateTime.Now > Date.AddMinutes(-30))
+            if (reservation?.WasPlacedViaWebsite == true && DateTime.Now > Date.AddMinutes(-30))
             {
                 throw new Exception("This reservation cannot be placed, because show starts in less than 30 minutes.");
             }
@@ -51,7 +51,7 @@ namespace TicketReservation.Domain
                 }
             }
 
-            Reservations.Add(reservation);
+            Reservations?.Add(reservation);
         }
 
         public decimal EvaluateReservationPrice(Dictionary<Ticket, int> requestedTickets)
@@ -61,12 +61,12 @@ namespace TicketReservation.Domain
 
         public bool IsPlaceReserved(int row, int seat)
         {
-            return Reservations.Any(r => r.ReservedSeats.Any(s => s.Row == row && s.Seat == seat));
+            return Reservations?.Any(r => r.ReservedSeats?.Any(s => s.Row == row && s.Seat == seat) == true) == true;
         }
 
         public void RemoveReservationById(Guid reservationId)
         {
-            Reservations.RemoveWhere(r => r.Id == reservationId);
+            Reservations?.RemoveWhere(r => r.Id == reservationId);
         }
     }
 }

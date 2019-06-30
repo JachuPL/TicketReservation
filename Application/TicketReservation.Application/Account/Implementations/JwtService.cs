@@ -7,7 +7,7 @@ using TicketReservation.Application.Account.Interfaces;
 using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Extensions;
 using TicketReservation.Application.Settings;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Account.Implementations
 {

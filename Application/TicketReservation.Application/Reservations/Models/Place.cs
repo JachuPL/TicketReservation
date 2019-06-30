@@ -1,5 +1,4 @@
-﻿using TicketReservation.Domain;
-using TicketReservation.Domain.Reservations;
+﻿using TicketReservation.Domain.Reservations;
 
 namespace TicketReservation.Application.Reservations.Models
 {

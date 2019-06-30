@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TicketReservation.Domain.Shows;
 
 namespace TicketReservation.Domain.Cinemas
 {

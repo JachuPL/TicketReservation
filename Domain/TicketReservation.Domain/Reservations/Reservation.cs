@@ -45,10 +45,10 @@ namespace TicketReservation.Domain.Reservations
 
         public void AddSeat(int row, int seat, Ticket ticket)
         {
-            if (ReservedSeats.Any(x => x.Row == row && x.Seat == seat))
+            if (ReservedSeats?.Any(x => x.Row == row && x.Seat == seat) == true)
                 return;
 
-            ReservedSeats.Add(new ReservedSeat(row, seat, ticket));
+            ReservedSeats?.Add(new ReservedSeat(row, seat, ticket));
         }
     }
 }

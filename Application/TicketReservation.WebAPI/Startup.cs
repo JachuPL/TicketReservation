@@ -12,7 +12,7 @@ using System.Text;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Settings;
 using TicketReservation.Application.Shared;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Users;
 using TicketReservation.WebAPI.Extensions;
 
 namespace TicketReservation.WebAPI

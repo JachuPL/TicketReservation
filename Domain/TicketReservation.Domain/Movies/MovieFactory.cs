@@ -2,7 +2,7 @@
 
 namespace TicketReservation.Domain.Movies
 {
-    public class MovieFactory
+    public static class MovieFactory
     {
         public static Movie Create(Guid id, string title)
         {

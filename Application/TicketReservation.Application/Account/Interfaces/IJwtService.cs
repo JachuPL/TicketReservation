@@ -1,7 +1,7 @@
 ﻿using System;
 using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Shared;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Account.Interfaces
 {

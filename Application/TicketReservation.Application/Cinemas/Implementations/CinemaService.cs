@@ -7,10 +7,10 @@ using TicketReservation.Application.Cinemas.Interfaces;
 using TicketReservation.Application.Cinemas.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Shows.Requests;
-using TicketReservation.Domain;
 using TicketReservation.Domain.Cinemas;
 using TicketReservation.Domain.Movies;
 using TicketReservation.Domain.Reservations;
+using TicketReservation.Domain.Shows;
 
 namespace TicketReservation.Application.Cinemas.Implementations
 {

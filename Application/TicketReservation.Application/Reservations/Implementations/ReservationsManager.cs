@@ -8,8 +8,8 @@ using TicketReservation.Application.Common.Mail;
 using TicketReservation.Application.Reservations.Interfaces;
 using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
-using TicketReservation.Domain;
 using TicketReservation.Domain.Reservations;
+using TicketReservation.Domain.Shows;
 using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Reservations.Implementations
