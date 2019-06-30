@@ -6,6 +6,6 @@ namespace TicketReservation.Application.Account.Interfaces
 {
     public interface IAccountService : IService
     {
-        Task<JwtDTO> LoginAsync(string login, string password);
+        Task<JwtDto> LoginAsync(string login, string password);
     }
 }

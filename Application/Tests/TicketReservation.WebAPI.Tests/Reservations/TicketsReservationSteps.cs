@@ -15,11 +15,11 @@ using TicketReservation.Application.Account.Models;
 using TicketReservation.Application.Cinemas.Models;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Common.Mail;
-using TicketReservation.Application.Movies.Requests;
+using TicketReservation.Application.Movies.Models;
 using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
 using TicketReservation.Application.Shows.Requests;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Reservations;
 using TicketReservation.WebAPI.Tests.Common;
 
 namespace TicketReservation.WebAPI.Tests.Reservations
@@ -27,8 +27,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
     [Binding]
     public class TicketsReservationSteps : AbstractIntegrationTestSession
     {
-        private Guid _createdCinemaId, _selectedCinemaId;
-        private Guid _createdMovieId, _selectedMovieId;
+        private Guid _createdCinemaId;
+        private Guid _createdMovieId;
         private Guid _createdShowId, _selectedShowId;
         private List<Place> _selectedPlaces = new List<Place>();
         private ReservationOffer _generatedOffer;
@@ -43,13 +43,14 @@ namespace TicketReservation.WebAPI.Tests.Reservations
 
         private async Task<string> GetJwt()
         {
-            var request = new LoginRequest()
+            LoginRequest loginRequest = new LoginRequest()
             {
                 Login = "user",
                 Password = "user12345"
             };
-            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/login/", request);
-            var jwt = JsonConvert.DeserializeObject<JwtDTO>(await response.Content.ReadAsStringAsync());
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/login/", loginRequest);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            JwtDto jwt = JsonConvert.DeserializeObject<JwtDto>(responseContent);
             return jwt.Token;
         }
 
@@ -76,8 +77,13 @@ namespace TicketReservation.WebAPI.Tests.Reservations
                 City = city
             };
             HttpResponseMessage response = await Client.PostAsJsonAsync("/api/cinemas/", request);
+            _createdCinemaId = GetGuidFromLocationHeader(response);
+        }
+
+        private static Guid GetGuidFromLocationHeader(HttpResponseMessage response)
+        {
             string[] uriSegments = response.Headers.Location.Segments;
-            _createdCinemaId = Guid.Parse(uriSegments[uriSegments.Length - 1]);
+            return Guid.Parse(uriSegments[uriSegments.Length - 1]);
         }
 
         [Given(@"movie ""(.*)"" is defined")]
@@ -88,8 +94,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
                 Title = movie
             };
             HttpResponseMessage response = await Client.PostAsJsonAsync("/api/movies/", request);
-            string[] uriSegments = response.Headers.Location.Segments;
-            _createdMovieId = Guid.Parse(uriSegments[uriSegments.Length - 1]);
+            _createdMovieId = GetGuidFromLocationHeader(response);
         }
 
         [Given(@"show ""(.*)"" is played in cinema ""(.*)"" in ""(.*)"" on ""(.*)"" with ticket price of (.*) PLN")]
@@ -109,8 +114,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
                 }
             };
             HttpResponseMessage response = await Client.PostAsJsonAsync($"/api/cinemas/{_createdCinemaId}/shows", request);
-            string[] uriSegments = response.Headers.Location.Segments;
-            _createdShowId = Guid.Parse(uriSegments[uriSegments.Length - 1]);
+            _createdShowId = GetGuidFromLocationHeader(response);
         }
 
         [Given(@"seat (.*) in row (.*) is reserved for ""(.*)"" in cinema ""(.*)"" in ""(.*)"" on ""(.*)""")]
@@ -126,8 +130,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
                         new Place
                         {
                             Ticket = Ticket.Normal,
-                            Seat = 10,
-                            Row = 5
+                            Seat = seat,
+                            Row = row
                         }
                     },
                     ShowId = _selectedShowId
@@ -139,24 +143,19 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select cinema ""(.*)"" in ""(.*)""")]
         public void WhenISelectCinemaIn(string cinema, string city)
         {
-            // TODO: implement GET Cinemas?cinema={cinema}&city={city}
             // NOTE: for this purpose assume that cinema name is unique and we have 1 cinema available
-            _selectedCinemaId = _createdCinemaId;
         }
 
         [When(@"I select movie ""(.*)""")]
         public void WhenISelectMovie(string movie)
         {
-            // TODO: implement GET Movies?name={movie}
             // NOTE: for this purpose assume that movie name is unique and we have 1 movie available
-            _selectedMovieId = _createdMovieId;
         }
 
         [When(@"I select show at ""(.*)""")]
         public void WhenISelectShowAt(string datetime)
         {
-            // TODO: implement GET Shows?cinemaId={_selectedCinemaId}&movieId={_selectedMovieId}&date={datetime}
-            // NOTE: for this purpose assume that show is defined
+            // NOTE: for this purpose assume that show is defined as above
             _selectedShowId = _createdShowId;
         }
 
@@ -168,7 +167,7 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I select seat (.*) in row (.*)")]
         public void WhenISelectSeatInRow(int seat, int row)
         {
-            // NOTE: We assume that a request was made to /shows/{_selectedShowId}/availableseats and this seat is available.
+            // NOTE: For sake of simplicity we assume that a request was made previously to /shows/{_selectedShowId}/availableseats and this seat is available.
             // Otherwise, the flow would not match other scenarios
             _selectedPlaces.Add(new Place
             {
@@ -181,9 +180,9 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         [When(@"I make a reservation")]
         public async Task WhenIMakeAReservation()
         {
-            ReservationOffer request = _generatedOffer;
-            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/reservations/", request);
-            string content = await response.Content.ReadAsStringAsync();
+            ReservationOffer reservationOffer = _generatedOffer;
+            HttpResponseMessage response = await Client.PostAsJsonAsync("/api/reservations/", reservationOffer);
+            string responseContent = await response.Content.ReadAsStringAsync();
             _reservationStatusCode = response.StatusCode;
         }
 
@@ -209,8 +208,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
             }
 
             HttpResponseMessage response = await Client.GetAsync(query);
-            string content = await response.Content.ReadAsStringAsync();
-            _generatedOffer = JsonConvert.DeserializeObject<ReservationOffer>(content);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            _generatedOffer = JsonConvert.DeserializeObject<ReservationOffer>(responseContent);
             _generatedOffer.OfferRequest.Should().BeEquivalentTo(request);
             _generatedOffer.Price.Should().Be(price);
         }
@@ -231,8 +230,8 @@ namespace TicketReservation.WebAPI.Tests.Reservations
         public async Task ThenISeeThatSeatInRowIsAlreadyReserved(int seat, int row)
         {
             HttpResponseMessage response = await Client.GetAsync($"/api/shows/{_selectedShowId}/availableseats");
-            List<Place> places = JsonConvert.DeserializeObject<List<Place>>(await response.Content.ReadAsStringAsync());
-            places.Should().NotContain(x => x.Seat == seat && x.Row == row);
+            List<Place> availablePlaces = JsonConvert.DeserializeObject<List<Place>>(await response.Content.ReadAsStringAsync());
+            availablePlaces.Should().NotContain(x => x.Seat == seat && x.Row == row);
         }
     }
 }

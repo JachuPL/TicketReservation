@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace TicketReservation.WebAPI.Cinemas
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CinemasController : ControllerBase
     {
         private readonly ICinemaService _cinemaService;
@@ -25,6 +26,7 @@ namespace TicketReservation.WebAPI.Cinemas
         [Route("{id:guid}", Name = nameof(GetCinemaById))]
         public ActionResult GetCinemaById(Guid id)
         {
+            // NOTE: this was just defined only for route generation while POSTing new entity
             return null;
         }
 

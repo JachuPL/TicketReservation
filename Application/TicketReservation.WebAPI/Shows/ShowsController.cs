@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using TicketReservation.Application.Shows.Requests;
-using TicketReservation.Application.Reservations.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using TicketReservation.Application.Reservations.Interfaces;
 using TicketReservation.Application.Reservations.Models;
+using TicketReservation.Application.Shows.Requests;
 
 namespace TicketReservation.WebAPI.Shows
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ShowsController : ControllerBase
     {
         private readonly IQueryReservations _reservationsQuerier;
@@ -25,7 +26,7 @@ namespace TicketReservation.WebAPI.Shows
         [Route("{id:guid}", Name = nameof(GetShowById))]
         public ActionResult GetShowById(Guid id)
         {
-            // TODO: only for Location purposes
+            // NOTE: this was just defined only for route generation while POSTing new entity
             return null;
         }
 

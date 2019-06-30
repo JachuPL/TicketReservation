@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 using TicketReservation.Application.Settings;
 
 namespace TicketReservation.WebAPI.Extensions
@@ -7,11 +8,10 @@ namespace TicketReservation.WebAPI.Extensions
     {
         public static JwtSettings GetJwtSettings(this IConfiguration configuration)
         {
-            var key = configuration["jwt:Key"];
-            var issuer = configuration["jwt:Issuer"];
-            int expiryMinutes = int.Parse(configuration["jwt:ExpiryMinutes"]);
-            var settings = new JwtSettings(key, issuer, expiryMinutes);
-            return settings;
+            string key = configuration["jwt:Key"];
+            string issuer = configuration["jwt:Issuer"];
+            int expirationTimeInMinutes = int.Parse(configuration["jwt:ExpirationTimeInMinutes"]);
+            return new JwtSettings(key, issuer, TimeSpan.FromMinutes(expirationTimeInMinutes));
         }
     }
 }

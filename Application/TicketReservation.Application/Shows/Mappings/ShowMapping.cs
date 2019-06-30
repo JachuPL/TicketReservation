@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Reservations;
+using TicketReservation.Domain.Shows;
 
 namespace TicketReservation.Application.Shows.Mappings
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.Text;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Settings;
 using TicketReservation.Application.Shared;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Users;
 using TicketReservation.WebAPI.Extensions;
 
 namespace TicketReservation.WebAPI

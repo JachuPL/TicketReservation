@@ -1,4 +1,6 @@
-﻿namespace TicketReservation.Application.Reservations.Requests
+﻿using TicketReservation.Application.Reservations.Models;
+
+namespace TicketReservation.Application.Reservations.Requests
 {
     public class ReservationOffer
     {

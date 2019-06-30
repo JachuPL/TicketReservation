@@ -8,7 +8,9 @@ using TicketReservation.Application.Common.Mail;
 using TicketReservation.Application.Reservations.Interfaces;
 using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Reservations;
+using TicketReservation.Domain.Shows;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Reservations.Implementations
 {
@@ -50,9 +52,8 @@ namespace TicketReservation.Application.Reservations.Implementations
                 throw new KeyNotFoundException(nameof(userId));
             }
 
-            HashSet<ReservedSeat> reservedSeats = MapPlaces(request.OfferRequest.Places);
-
-            Reservation reservation = ReservationFactory.Create(reservationId, show, user, reservedSeats);
+            Reservation reservation = ReservationFactory.Create(reservationId, user);
+            AddPlacesToReservation(request.OfferRequest.Places, reservation);
             show.AddReservation(reservation);
 
             await _ctx.SaveChangesAsync();
@@ -60,24 +61,15 @@ namespace TicketReservation.Application.Reservations.Implementations
             _emailSender.Send(new Email()); //TODO
         }
 
-        private HashSet<ReservedSeat> MapPlaces(List<Place> places)
+        private void AddPlacesToReservation(List<Place> places, Reservation reservation)
         {
-            HashSet<ReservedSeat> reservedSeats = new HashSet<ReservedSeat>();
-            places.ForEach(place =>
-            {
-                Guid reservedSeatId = Guid.NewGuid();
-                ReservedSeat seat = ReservedSeat.Create(place.Row, place.Seat, place.Ticket);
-
-                reservedSeats.Add(seat);
-            });
-
-            return reservedSeats;
+            places.ForEach(place => reservation.AddSeat(place.Row, place.Seat, place.Ticket));
         }
 
         private bool AnyPlaceIsInvalid(List<Place> places)
         {
-            return places.Any(x => x.Row > Place.NumberOfRows || x.Seat > Place.NumberOfSeatsPerRow
-            || x.Row < 0 || x.Seat < 0);
+            return places.Any(x => x.Row > ReservedSeat.NumberOfRows || x.Seat > ReservedSeat.NumberOfSeatsPerRow
+                            || x.Row < 1 || x.Seat < 1);
         }
 
         public async Task Delete(Guid id)

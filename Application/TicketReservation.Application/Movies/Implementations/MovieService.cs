@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using TicketReservation.Application.Common.Database;
 using TicketReservation.Application.Movies.Interfaces;
-using TicketReservation.Application.Movies.Requests;
-using TicketReservation.Domain;
+using TicketReservation.Application.Movies.Models;
+using TicketReservation.Domain.Movies;
 
 namespace TicketReservation.Application.Movies.Implementations
 {

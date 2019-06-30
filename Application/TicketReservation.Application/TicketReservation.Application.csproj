@@ -11,8 +11,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190629134325_refactored_domain.cs" />
-    <Compile Remove="Migrations\20190629134325_refactored_domain.Designer.cs" />
+    <Compile Remove="Common\Database\Migrations\20190629134325_refactored_domain.cs" />
+    <Compile Remove="Common\Database\Migrations\20190629134325_refactored_domain.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Common\Database\Migrations\20190628190355_Initial.cs" />
+    <Compile Include="Common\Database\Migrations\20190628190355_Initial.Designer.cs" />
+    <Compile Include="Common\Database\Migrations\20190628211801_identity_fix.cs" />
+    <Compile Include="Common\Database\Migrations\20190628211801_identity_fix.Designer.cs" />
+    <Compile Include="Common\Database\Migrations\20190629134937_refactored_domain.cs" />
+    <Compile Include="Common\Database\Migrations\20190629134937_refactored_domain.Designer.cs" />
+    <Compile Include="Common\Database\Migrations\20190629153059_refactored_domain_v2.cs" />
+    <Compile Include="Common\Database\Migrations\20190629153059_refactored_domain_v2.Designer.cs" />
+    <Compile Include="Common\Database\Migrations\20190629160927_user_fields.cs" />
+    <Compile Include="Common\Database\Migrations\20190629160927_user_fields.Designer.cs" />
+    <Compile Include="Common\Database\Migrations\TicketReservationContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
