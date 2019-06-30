@@ -74,8 +74,23 @@ namespace TicketReservation.Application.Reservations.Implementations
 
         public async Task Delete(Guid id)
         {
-            Show show = await _ctx.Shows.Where(s => s.Reservations.Any(r => r.Id == id)).FirstOrDefaultAsync();
+            Show show = await FindShowByReservationId(id);
+            if (show is null) return;
             show.RemoveReservationById(id);
+            await _ctx.SaveChangesAsync();
+        }
+
+        private async Task<Show> FindShowByReservationId(Guid id)
+        {
+            return await _ctx.Shows.Include(x => x.Reservations).ThenInclude(x => x.ReservedSeats).Where(s => s.Reservations.Any(r => r.Id == id)).FirstOrDefaultAsync();
+        }
+
+        public async Task MarkAsPaid(Guid id)
+        {
+            Show show = await FindShowByReservationId(id);
+            if (show is null) return;
+            Reservation reservation = show.Reservations.First(x => x.Id == id);
+            reservation.MarkAsPaid();
             await _ctx.SaveChangesAsync();
         }
     }
