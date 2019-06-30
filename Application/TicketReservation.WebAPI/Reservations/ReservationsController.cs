@@ -58,5 +58,14 @@ namespace TicketReservation.WebAPI.Reservations
             await _reservationManager.Delete(id);
             return NoContent();
         }
+
+
+        [HttpPatch]
+        [Route("{id:guid}/status")]
+        public async Task<ActionResult> Patch(Guid id)
+        {
+            await _reservationManager.MarkAsPaid(id);
+            return NoContent();
+        }
     }
 }
