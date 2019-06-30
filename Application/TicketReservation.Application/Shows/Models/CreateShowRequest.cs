@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TicketReservation.Domain;
+using TicketReservation.Domain.Reservations;
 
 namespace TicketReservation.Application.Shows.Requests
 {

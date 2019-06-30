@@ -1,4 +1,4 @@
-﻿namespace TicketReservation.Domain
+﻿namespace TicketReservation.Domain.Reservations
 {
     public enum Ticket
     {

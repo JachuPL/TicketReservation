@@ -10,6 +10,7 @@ using TicketReservation.Application.Shows.Requests;
 using TicketReservation.Domain;
 using TicketReservation.Domain.Cinemas;
 using TicketReservation.Domain.Movies;
+using TicketReservation.Domain.Reservations;
 
 namespace TicketReservation.Application.Cinemas.Implementations
 {

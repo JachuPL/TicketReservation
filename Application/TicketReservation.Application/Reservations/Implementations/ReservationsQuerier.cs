@@ -8,6 +8,7 @@ using TicketReservation.Application.Reservations.Interfaces;
 using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
 using TicketReservation.Domain;
+using TicketReservation.Domain.Reservations;
 
 namespace TicketReservation.Application.Reservations.Implementations
 {
