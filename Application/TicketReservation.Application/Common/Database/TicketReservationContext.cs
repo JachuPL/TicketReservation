@@ -8,6 +8,7 @@ using TicketReservation.Application.Shows.Mappings;
 using TicketReservation.Domain;
 using TicketReservation.Domain.Cinemas;
 using TicketReservation.Domain.Movies;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Common.Database
 {

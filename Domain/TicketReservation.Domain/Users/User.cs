@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketReservation.Domain
+namespace TicketReservation.Domain.Users
 {
     public class User
     {

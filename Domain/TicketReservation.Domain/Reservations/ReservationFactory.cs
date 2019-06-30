@@ -1,4 +1,5 @@
 ﻿using System;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Domain.Reservations
 {

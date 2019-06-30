@@ -1,4 +1,4 @@
-﻿namespace TicketReservation.Domain
+﻿namespace TicketReservation.Domain.Users
 {
     public enum Role
     {

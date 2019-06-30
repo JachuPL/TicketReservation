@@ -10,6 +10,7 @@ using TicketReservation.Application.Reservations.Models;
 using TicketReservation.Application.Reservations.Requests;
 using TicketReservation.Domain;
 using TicketReservation.Domain.Reservations;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Reservations.Implementations
 {

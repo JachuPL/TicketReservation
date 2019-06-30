@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TicketReservation.Domain;
+using TicketReservation.Domain.Users;
 
 namespace TicketReservation.Application.Users.Mappings
 {
